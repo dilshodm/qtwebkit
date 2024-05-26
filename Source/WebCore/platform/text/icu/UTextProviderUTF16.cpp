@@ -28,6 +28,21 @@
 
 #include "UTextProvider.h"
 
+// Since icu 68.1 icu we have to:
+#ifndef TRUE
+// Taken from umachibe.h:
+/**
+ * The TRUE value of a UBool.
+ *
+ * @deprecated ICU 68 Use standard "true" instead.
+ */
+#   define TRUE  true
+#endif
+
+#ifndef FALSE
+#   define FALSE  false
+#endif
+
 namespace WebCore {
 
 // UTF16ContextAware provider

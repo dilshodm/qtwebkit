@@ -12,6 +12,7 @@
 #include "common/debug.h"
 #include "common/platform.h"
 
+#include <cstdint>
 #include <limits>
 #include <algorithm>
 #include <string.h>

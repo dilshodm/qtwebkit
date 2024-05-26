@@ -88,6 +88,7 @@
 #else
 #define WTF_CPU_MIPS 1
 #define WTF_MIPS_ARCH __mips
+#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1
 #endif
 #if defined(__MIPSEB__)
 #define WTF_CPU_BIG_ENDIAN 1
@@ -354,7 +355,14 @@
 
 #endif /* ARM */
 
-#if CPU(ARM) || CPU(MIPS) || CPU(SH4) || CPU(ALPHA) || CPU(HPPA)
+#if defined(__riscv)
+#define WTF_CPU_RISCV 1
+#if __riscv_xlen == 64
+#define WTF_CPU_RISCV64 1
+#endif
+#endif
+
+#if CPU(ARM) || CPU(MIPS) || CPU(SH4) || CPU(ALPHA) || CPU(HPPA) || CPU(RISCV)
 #define WTF_CPU_NEEDS_ALIGNED_ACCESS 1
 #endif
 

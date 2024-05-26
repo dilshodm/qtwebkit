@@ -245,6 +245,10 @@ if (NOT USE_SYSTEM_MALLOC)
     list(APPEND WTF_LIBRARIES bmalloc)
 endif ()
 
+list(APPEND WTF_LIBRARIES
+     -Wl,--as-needed -Wl,-latomic -Wl,--no-as-needed
+)
+
 list(APPEND WTF_SOURCES
     unicode/icu/CollatorICU.cpp
 )

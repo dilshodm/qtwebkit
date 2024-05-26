@@ -51,7 +51,9 @@
 #include <cxxabi.h>
 #if OS(DARWIN) || (OS(LINUX) && !PLATFORM(GTK))
 #include <dlfcn.h>
+#if defined(__GLIBC__)
 #include <execinfo.h>
+#endif
 #endif
 
 #if ENABLE(REMOTE_INSPECTOR)

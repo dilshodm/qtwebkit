@@ -566,7 +566,7 @@ void* MachineThreads::Thread::Registers::stackPointer() const
 #error Unknown Architecture
 #endif
 
-#elif defined(__GLIBC__) && ENABLE(JIT)
+#elif defined(__linux__) && ENABLE(JIT)
 
 #if CPU(X86)
     return reinterpret_cast<void*>((uintptr_t) regs.machineContext.gregs[REG_ESP]);
@@ -665,7 +665,7 @@ void* MachineThreads::Thread::Registers::framePointer() const
 #error Unknown Architecture
 #endif
 
-#elif defined(__GLIBC__)
+#elif defined(__linux__)
 
 // The following sequence depends on glibc's sys/ucontext.h.
 #if CPU(X86)
@@ -747,7 +747,7 @@ void* MachineThreads::Thread::Registers::instructionPointer() const
 #error Unknown Architecture
 #endif
 
-#elif defined(__GLIBC__)
+#elif defined(__linux__)
 
 // The following sequence depends on glibc's sys/ucontext.h.
 #if CPU(X86)
@@ -838,7 +838,7 @@ void* MachineThreads::Thread::Registers::llintPC() const
 #error Unknown Architecture
 #endif
 
-#elif defined(__GLIBC__)
+#elif defined(__linux__)
 
 // The following sequence depends on glibc's sys/ucontext.h.
 #if CPU(X86)
