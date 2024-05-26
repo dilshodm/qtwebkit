@@ -29,8 +29,10 @@
 #include <wtf/RefPtr.h>
 #include <algorithm>
 
+#if !PLATFORM(QT)
 extern "C" void g_object_unref(gpointer);
 extern "C" gpointer g_object_ref_sink(gpointer);
+#endif
 
 namespace WTF {
 
