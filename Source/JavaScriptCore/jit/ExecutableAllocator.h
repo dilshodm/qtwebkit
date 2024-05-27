@@ -20,7 +20,7 @@
  * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #ifndef ExecutableAllocator_h
@@ -36,11 +36,11 @@
 #include <wtf/RefCounted.h>
 #include <wtf/Vector.h>
 
-#if OS(IOS)
+#if OS(DARWIN)
 #include <libkern/OSCacheControl.h>
 #endif
 
-#if OS(IOS)
+#if OS(DARWIN)
 #include <sys/mman.h>
 #endif
 
@@ -100,15 +100,15 @@ class ExecutableAllocator {
 public:
     ExecutableAllocator(VM&);
     ~ExecutableAllocator();
-    
+
     static void initializeAllocator();
 
     bool isValid() const;
 
     static bool underMemoryPressure();
-    
+
     static double memoryPressureMultiplier(size_t addedMemoryUsage);
-    
+
 #if ENABLE(META_ALLOCATOR_PROFILE)
     static void dumpProfile();
 #else
