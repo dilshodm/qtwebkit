@@ -245,9 +245,11 @@ if (NOT USE_SYSTEM_MALLOC)
     list(APPEND WTF_LIBRARIES bmalloc)
 endif ()
 
-list(APPEND WTF_LIBRARIES
-     -Wl,--as-needed -Wl,-latomic -Wl,--no-as-needed
-)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    list(APPEND WTF_LIBRARIES
+        -Wl,--as-needed -Wl,-latomic -Wl,--no-as-needed
+    )
+endif()
 
 list(APPEND WTF_SOURCES
     unicode/icu/CollatorICU.cpp
