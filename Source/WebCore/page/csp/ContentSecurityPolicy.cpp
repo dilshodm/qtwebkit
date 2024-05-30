@@ -76,7 +76,7 @@ ContentSecurityPolicy::~ContentSecurityPolicy()
 {
 }
 
-void ContentSecurityPolicy::copyStateFrom(const ContentSecurityPolicy* other) 
+void ContentSecurityPolicy::copyStateFrom(const ContentSecurityPolicy* other)
 {
     ASSERT(m_policies.isEmpty());
     for (auto& policy : other->m_policies)
@@ -232,7 +232,8 @@ bool isAllowedByAllWithHashFromContent(const CSPDirectiveListVector& policies, c
         cryptoDigest->addBytes(contentCString.data(), contentCString.length());
         Vector<uint8_t> digest = cryptoDigest->computeHash();
         for (auto& policy : policies) {
-            if ((policy.get()->*allowed)(std::make_pair(algorithm, digest)))
+            const auto val = std::make_pair(algorithm, digest);
+            if ((policy.get()->*allowed)(val))
                 return true;
         }
     }
@@ -614,5 +615,5 @@ bool ContentSecurityPolicy::experimentalFeaturesEnabled() const
     return false;
 #endif
 }
-    
+
 }
