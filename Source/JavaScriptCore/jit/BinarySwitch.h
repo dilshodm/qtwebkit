@@ -20,7 +20,7 @@
  * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #ifndef BinarySwitch_h
@@ -30,7 +30,6 @@
 
 #include "GPRInfo.h"
 #include "MacroAssembler.h"
-#include <wtf/WeakRandom.h>
 
 namespace JSC {
 
@@ -65,22 +64,22 @@ public:
         Int32,
         IntPtr
     };
-    
+
     BinarySwitch(GPRReg value, const Vector<int64_t>& cases, Type);
     ~BinarySwitch();
-    
+
     unsigned caseIndex() const { return m_cases[m_caseIndex].index; }
     int64_t caseValue() const { return m_cases[m_caseIndex].value; }
-    
+
     bool advance(MacroAssembler&);
-    
+
     MacroAssembler::JumpList& fallThrough() { return m_fallThrough; }
-    
+
 private:
     void build(unsigned start, bool hardStart, unsigned end);
-    
+
     GPRReg m_value;
-    
+
     struct Case {
         Case() { }
 
@@ -89,20 +88,20 @@ private:
             , index(index)
         {
         }
-        
+
         bool operator<(const Case& other) const
         {
             return value < other.value;
         }
 
         void dump(PrintStream& out) const;
-        
+
         int64_t value;
         unsigned index;
     };
-    
+
     Vector<Case> m_cases;
-    
+
     enum BranchKind {
         NotEqualToFallThrough,
         NotEqualToPush,
@@ -110,10 +109,10 @@ private:
         Pop,
         ExecuteCase
     };
-        
+
     struct BranchCode {
         BranchCode() { }
-        
+
         BranchCode(BranchKind kind, unsigned index = UINT_MAX)
             : kind(kind)
             , index(index)
@@ -121,21 +120,19 @@ private:
         }
 
         void dump(PrintStream& out) const;
-        
+
         BranchKind kind;
         unsigned index;
     };
-    
-    WeakRandom m_weakRandom;
-    
+
     Vector<BranchCode> m_branches;
 
     unsigned m_index;
     unsigned m_caseIndex;
     Vector<MacroAssembler::Jump> m_jumpStack;
-    
+
     MacroAssembler::JumpList m_fallThrough;
-    
+
     Type m_type;
 };
 
